@@ -9,11 +9,11 @@
 </head>
 <body>
     <section id="header">
-        <a href="#"><img src="web_resources/logo.png" width="48" height="32" alt="Logo"></a>
+        <a href="index.html"><img src="web_resources/logo.png" width="48" height="32" alt="Logo"></a>
 
         <div id="search-container">
             <input type="text" id="search-bar" placeholder="Search products">
-            <button id="search-btn" aria-label="Search">
+            <button id="search-btn" aria-label="Search" onclick="location.href='#products'">
                 <i class="fas fa-search" ></i>
             </button>
         </div>
@@ -32,7 +32,7 @@
         <h2>Super value deals</h2>
         <h1>On all products</h1>
         <p>Save more with coupons & up to 70% off!</p>
-        <button>Shop Now</button>
+        <button onclick="location.href='#products'">Shop Now</button>
     </section>
 
     <section id="products">
@@ -62,8 +62,8 @@
       <h3>Quick Links</h3>
       <ul>
         <li><a href="#products">Products</a></li>
-        <li><a href="#search-bar">Search</a></li>
-        <li><a href="#">check out</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="checkout.html">Check Out</a></li>
       </ul>
     </div>
     <div class="footer-section">
@@ -75,7 +75,7 @@
       </ul>
     </div>
   </div>
-    <p class="footer-bottom">&copy; 2025 ERD Store. All rights reserved.</p>
+    <p class="footer-bottom"> 2025 ERD Store. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
 </body>

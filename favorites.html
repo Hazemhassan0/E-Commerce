@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Favourites</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header same as main page -->
+  <section id="header">
+    <a href="index.html"><img src="web_resources/logo.png" width="48" height="32" alt="Logo"></a>
+
+    <div id="search-container">
+      <input type="text" placeholder="Search products" disabled>
+    </div>
+
+    <div>
+      <ul id="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="favorites.html">Fav</a></li>
+        <li><a href="cart.html"><img src="web_resources/cart.png" width="16" height="16" alt="Cart"></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <main id="favorites-page">
+    <h2>My Favourites</h2>
+
+    <!-- Grid for favourite items -->
+    <div class="favorites-grid"></div>
+
+    <!-- Add All to Cart button -->
+    <button id="add-all-to-cart" class="add-all-btn">🛒 Add All to Cart</button>
+  </main>
+
+  <!-- Footer same as main page -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>We provide the best products at unbeatable prices. Shop with confidence!</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html#products">Products</a></li>
+          <li><a href="index.html#search-bar">Search</a></li>
+          <li><a href="cart.html">Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <ul class="social-links">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">2025 ERD Store. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
