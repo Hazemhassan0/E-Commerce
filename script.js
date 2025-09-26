@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function setCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
-    window.dispatchEvent(new Event('cartUpdated'));
   }
   function getFavorites() {
     return JSON.parse(localStorage.getItem('favorites')) || [];
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       list.forEach(product => {
         const isFav = favs.some(p => p.id === product.id);
-
         const div = document.createElement('div');
         div.className = 'product-box';
         div.innerHTML = `
@@ -87,6 +85,62 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
+  // FAVORITES PAGE
+  // -----------------------
+  const favoritesGrid = document.querySelector('#favorites-page .favorites-grid');
+  if (favoritesGrid) {
+    function renderFavorites() {
+      const favs = getFavorites();
+      favoritesGrid.innerHTML = '';
+
+      if (favs.length === 0) {
+        favoritesGrid.innerHTML = '<p>You have no favorite products.</p>';
+        return;
+      }
+
+      favs.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product-box';
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.title}">
+          <h3>${product.title}</h3>
+          <p class="price">$${product.price}</p>
+          <p class="category">${product.category}</p>
+          <div class="product-actions">
+            <button class="fav-btn active">Remove Fav</button>
+            <button class="cart-btn">Add to Cart</button>
+          </div>
+        `;
+
+        // Remove from favorites
+        div.querySelector('.fav-btn').addEventListener('click', () => {
+          let favs = getFavorites();
+          favs = favs.filter(p => p.id !== product.id);
+          setFavorites(favs);
+          renderFavorites();
+        });
+
+        // Add to Cart
+        div.querySelector('.cart-btn').addEventListener('click', () => {
+          const cart = getCart();
+          const existing = cart.find(item => item.id === product.id);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({ ...product, quantity: 1 });
+          }
+          setCart(cart);
+          alert(`${product.title} added to cart!`);
+        });
+
+        favoritesGrid.appendChild(div);
+      });
+    }
+
+    renderFavorites();
+  }
+
+  // -----------------------
   // CART PAGE
   // -----------------------
   const cartGrid = document.querySelector('.cart-grid');
@@ -102,19 +156,63 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      cart.forEach(item => {
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        
+
         const div = document.createElement('div');
-        div.className = 'cart-item';
+        div.className = 'product-box';
         div.innerHTML = `
-          <h4>${item.title}</h4>
-          <p>Qty: ${item.quantity}</p>
-          <p>Total: $${(item.price * item.quantity).toFixed(2)}</p>
+        <img src="${item.image}" alt="${item.title}" style="max-width: 100px; height: auto; margin-bottom: 0.5rem;">
+        <h4>${item.title}</h4>
+        <p>Price: $${item.price.toFixed(2)}</p>
+        <div class="quantity-container">
+        <button class="decrease" data-index="${index}">-</button>
+        <span>${item.quantity}</span>
+        <button class="increase" data-index="${index}">+</button>
+        </div>
+        <p>Total: $${itemTotal.toFixed(2)}</p>
+        <button class="remove-item" data-index="${index}">Remove</button>
+        
         `;
         cartGrid.appendChild(div);
       });
+
+      // Attach event listeners
+      cartGrid.querySelectorAll('.increase').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.target.dataset.index;
+          cart[i].quantity += 1;
+          setCart(cart);
+          renderCart();
+        });
+      });
+
+      cartGrid.querySelectorAll('.decrease').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.target.dataset.index;
+          if (cart[i].quantity > 1) {
+            cart[i].quantity -= 1;
+          } else {
+            cart.splice(i, 1);
+          }
+          setCart(cart);
+          renderCart();
+        });
+      });
+
+      cartGrid.querySelectorAll('.remove-item').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.target.dataset.index;
+          cart.splice(i, 1);
+          setCart(cart);
+          renderCart();
+        });
+      });
     }
 
-    window.addEventListener('cartUpdated', renderCart);
     renderCart();
 
     if (checkoutBtn) {
@@ -125,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
-  // CHECKOUT PAGE (checkout.html)
+  // CHECKOUT PAGE
   // -----------------------
   const checkoutSummary = document.querySelector('.checkout-summary');
   const checkoutForm = document.getElementById('checkout-form');

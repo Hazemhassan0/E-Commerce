@@ -218,7 +218,7 @@ h6 {
 
 @media (max-width: 480px) {
   .products-grid {
-    grid-template-columns: 1fr; /* single column on very small screens */
+    grid-template-columns: 1fr; /* single */
   }
 }
 
@@ -431,6 +431,12 @@ footer {
   border-radius: 10px;
   width: 100%;
   max-width: 250px;
+
+  display: flex;           
+  flex-direction: column;  
+  justify-content: space-between; 
+
+         
 }
 
 #cart-page .product-box img {
