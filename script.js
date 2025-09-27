@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
           renderProducts(list); // refresh 
         });
 
-        // Add to Cart
+        // Add to Cart home
         div.querySelector('.cart-btn').addEventListener('click', () => {
           const cart = getCart();
           const existing = cart.find(item => item.id === product.id);
@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
-  // FAVORITES PAGE
-  // -----------------------
+  // FAVORITES
+
   const favoritesGrid = document.querySelector('#favorites-page .favorites-grid');
   if (favoritesGrid) {
     function renderFavorites() {
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         `;
 
-        // Remove in fav page
+        // Remove in fav 
         div.querySelector('.fav-btn').addEventListener('click', () => {
           let favs = getFavorites();
           favs = favs.filter(p => p.id !== product.id);
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
           renderFavorites();
         });
 
-        // Add to Cart
+        // Add to cart fav
         div.querySelector('.cart-btn').addEventListener('click', () => {
           const cart = getCart();
           const existing = cart.find(item => item.id === product.id);
@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
-  // CART PAGE
-  // -----------------------
+  // CART
+
   const cartGrid = document.querySelector('.cart-grid');
   const checkoutBtn = document.getElementById('go-checkout');
 
@@ -220,8 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
-  // CHECKOUT PAGE
-  // -----------------------
+  // CHECKOUT
+
   const checkoutSummary = document.querySelector('.checkout-summary');
   const checkoutForm = document.getElementById('checkout-form');
 
