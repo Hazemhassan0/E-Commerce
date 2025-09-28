@@ -20,14 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // HOME 
 const productsGrid = document.querySelector('#products .products-grid');
 const categoryButtons = document.querySelectorAll('.category-filter button');
+const searchInput = document.getElementById('search-bar'); 
+const searchBtn = document.getElementById('search-btn');   
 
 if (productsGrid) {
-  let allProducts = []; // 🔹 keep all products here
+  let allProducts = []; 
 
   async function fetchProducts() {
     try {
       const res = await fetch('https://fakestoreapi.com/products');
-      allProducts = await res.json(); // 🔹 store globally
+      allProducts = await res.json(); 
       renderProducts(allProducts);
     } catch (err) {
       console.error('Error fetching products:', err);
@@ -96,6 +98,23 @@ if (productsGrid) {
       }
     });
   });
+
+  function searchProducts() {
+      const query = searchInput.value.toLowerCase().trim();
+      if (query === "") {
+        renderProducts(allProducts);
+      } else {
+        const filtered = allProducts.filter(p =>
+          p.title.toLowerCase().includes(query)
+        );
+        renderProducts(filtered);
+      }
+    }
+
+
+    searchBtn.addEventListener('click', (e) => {
+      searchProducts();
+    });
 
   fetchProducts();
 }

@@ -363,7 +363,6 @@ footer {
 #favorites-page h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #222;
 }
 
 /* Grid for favorite items */
@@ -407,7 +406,7 @@ footer {
 #cart-page {
   padding: 2rem 5%;
   text-align: center;
-  min-height: 70vh;
+  min-height: 70vh; /*footer placement*/
 }
 
 .cart-grid {
@@ -511,6 +510,11 @@ footer {
   text-align: center;
 }
 
+#checkout-page h2{
+  text-align: center;
+  margin-top: 1rem;
+}
+
 .cart-summary-item h4 {
   margin-bottom: 0.5rem;
 }
@@ -545,12 +549,6 @@ footer {
   background-color: #cf711f;
 }
 
-.total {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
-  text-align: right;
-}
 /* Responsive */
 @media (max-width: 768px) {
   .cart-summary-grid {  
