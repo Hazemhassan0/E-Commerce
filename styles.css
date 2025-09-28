@@ -357,6 +357,7 @@ footer {
 #favorites-page {
   padding: 2rem 5%;
   text-align: center;
+  min-height: 70vh; /*footer placement*/
 }
 
 #favorites-page h2 {
@@ -406,6 +407,7 @@ footer {
 #cart-page {
   padding: 2rem 5%;
   text-align: center;
+  min-height: 70vh;
 }
 
 .cart-grid {

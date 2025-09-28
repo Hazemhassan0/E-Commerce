@@ -16,76 +16,94 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
+
   // HOME 
+const productsGrid = document.querySelector('#products .products-grid');
+const categoryButtons = document.querySelectorAll('.category-filter button');
 
-  const productsGrid = document.querySelector('#products .products-grid');
-  if (productsGrid) {
-    async function fetchProducts() {
-      try {
-        const res = await fetch('https://fakestoreapi.com/products');
-        const products = await res.json();
-        renderProducts(products);
-      } catch (err) {
-        console.error('Error fetching products:', err);
-        productsGrid.innerHTML = '<p>Failed to load products.</p>';
-      }
+if (productsGrid) {
+  let allProducts = []; // 🔹 keep all products here
+
+  async function fetchProducts() {
+    try {
+      const res = await fetch('https://fakestoreapi.com/products');
+      allProducts = await res.json(); // 🔹 store globally
+      renderProducts(allProducts);
+    } catch (err) {
+      console.error('Error fetching products:', err);
+      productsGrid.innerHTML = '<p>Failed to load products.</p>';
     }
-
-    function renderProducts(list) { 
-      const favs = getFavorites();
-      productsGrid.innerHTML = '';
-
-      list.forEach(product => {
-        const isFav = favs.some(p => p.id === product.id);
-        const div = document.createElement('div');
-        div.className = 'product-box';
-        div.innerHTML = `
-          <img src="${product.image}" alt="${product.title}">
-          <h3>${product.title}</h3>
-          <p class="price">$${product.price}</p>
-          <p class="category">${product.category}</p>
-          <div class="product-actions">
-            <button class="fav-btn ${isFav ? 'active' : ''}">
-              ${isFav ? 'Favorited' : 'Add to Fav'}
-            </button>
-            <button class="cart-btn">Add to Cart</button>
-          </div>
-        `;
-
-        // Fav toggle
-        div.querySelector('.fav-btn').addEventListener('click', () => {
-          if (favs.some(p => p.id === product.id)) {
-            favs = favs.filter(p => p.id !== product.id);
-          } else {
-            favs.push(product);
-          }
-          setFavorites(favs);
-          renderProducts(list); // refresh 
-        });
-
-        // Add to Cart home
-        div.querySelector('.cart-btn').addEventListener('click', () => {
-          const cart = getCart();
-          const existing = cart.find(item => item.id === product.id);
-          if (existing) {
-            existing.quantity += 1;
-          } else {
-            cart.push({ ...product, quantity: 1 });
-          }
-          setCart(cart);
-          alert(`${product.title} added to cart!`);
-        });
-
-        productsGrid.appendChild(div);
-      });
-    }
-
-    fetchProducts();
   }
 
-  // -----------------------
-  // FAVORITES
+  function renderProducts(list) {
+    let favs = getFavorites();
+    productsGrid.innerHTML = '';
 
+    list.forEach(product => {
+      const isFav = favs.some(p => p.id === product.id);
+      const div = document.createElement('div');
+      div.className = 'product-box';
+      div.innerHTML = `
+        <img src="${product.image}" alt="${product.title}">
+        <h3>${product.title}</h3>
+        <p class="price">$${product.price}</p>
+        <p class="category">${product.category}</p>
+        <div class="product-actions">
+          <button class="fav-btn ${isFav ? 'active' : ''}">
+            ${isFav ? 'Favorited' : 'Add to Fav'}
+          </button>
+          <button class="cart-btn">Add to Cart</button>
+        </div>
+      `;
+
+      // Fav toggle
+      div.querySelector('.fav-btn').addEventListener('click', () => {
+        if (favs.some(p => p.id === product.id)) {
+          favs = favs.filter(p => p.id !== product.id);
+        } else {
+          favs.push(product);
+        }
+        setFavorites(favs);
+        renderProducts(list); // refresh 
+      });
+
+      // Add to Cart
+      div.querySelector('.cart-btn').addEventListener('click', () => {
+        const cart = getCart();
+        const existing = cart.find(item => item.id === product.id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ ...product, quantity: 1 });
+        }
+        setCart(cart);
+        alert(`${product.title} added to cart!`);
+      });
+
+      productsGrid.appendChild(div);
+    });
+  }
+
+  // category buttons
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const value = btn.dataset.category;
+      if (value === 'all') {
+        renderProducts(allProducts);
+      } else {
+        const filtered = allProducts.filter(p => p.category === value);
+        renderProducts(filtered);
+      }
+    });
+  });
+
+  fetchProducts();
+}
+
+
+  // -----------------------
+
+  // FAVORITES
   const favoritesGrid = document.querySelector('#favorites-page .favorites-grid');
   if (favoritesGrid) {
     function renderFavorites() {
@@ -140,8 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
+  
   // CART
-
   const cartGrid = document.querySelector('.cart-grid');
   const checkoutBtn = document.getElementById('go-checkout');
 
@@ -220,8 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -----------------------
+  
   // CHECKOUT
-
   const checkoutSummary = document.querySelector('.checkout-summary');
   const checkoutForm = document.getElementById('checkout-form');
 
