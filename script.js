@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // helper Func
+  // helper func
 
   function getCart() {
-    return JSON.parse(localStorage.getItem('cart')) || [];
+    return JSON.parse(localStorage.getItem('cart'));
   }
   function setCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
   function getFavorites() {
-    return JSON.parse(localStorage.getItem('favorites')) || [];
+    return JSON.parse(localStorage.getItem('favorites')) ;
   }
   function setFavorites(favs) {
     localStorage.setItem('favorites', JSON.stringify(favs));
@@ -32,7 +32,6 @@ if (productsGrid) {
       allProducts = await res.json(); 
       renderProducts(allProducts);
     } catch (err) {
-      console.error('Error fetching products:', err);
       productsGrid.innerHTML = '<p>Failed to load products.</p>';
     }
   }
@@ -46,7 +45,7 @@ if (productsGrid) {
       const div = document.createElement('div');
       div.className = 'product-box';
       div.innerHTML = `
-        <img src="${product.image}" alt="${product.title}">
+        <img src="${product.image}">
         <h3>${product.title}</h3>
         <p class="price">$${product.price}</p>
         <p class="category">${product.category}</p>
@@ -130,7 +129,7 @@ if (productsGrid) {
       favoritesGrid.innerHTML = '';
 
       if (favs.length === 0) {
-        favoritesGrid.innerHTML = '<p>You have no favorite products.</p>';
+        favoritesGrid.innerHTML = '<p>You have no favorite products yet.</p>';
         return;
       }
 
@@ -138,7 +137,7 @@ if (productsGrid) {
         const div = document.createElement('div');
         div.className = 'product-box';
         div.innerHTML = `
-          <img src="${product.image}" alt="${product.title}">
+          <img src="${product.image}">
           <h3>${product.title}</h3>
           <p class="price">$${product.price}</p>
           <p class="category">${product.category}</p>
@@ -200,7 +199,7 @@ if (productsGrid) {
         const div = document.createElement('div');
         div.className = 'product-box';
         div.innerHTML = `
-        <img src="${item.image}" alt="${item.title}" style="max-width: 100px; height: auto; margin-bottom: 0.5rem;">
+        <img src="${item.image}" style="max-width: 100px; height: auto; margin-bottom: 0.5rem;">
         <h4>${item.title}</h4>
         <p>Price: $${item.price.toFixed(2)}</p>
         <div class="quantity-container">
