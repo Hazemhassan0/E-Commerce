@@ -305,8 +305,6 @@ footer {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.2s;
-  display: flex;
-  align-items: center;
   gap: 0.3rem;
 }
 
@@ -329,17 +327,6 @@ footer {
 
 .cart-btn:hover {
   background-color: #cf711f;
-}
-
-@media (max-width: 768px) {
-  .favorites-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  }
-}
-@media (max-width: 480px) {
-  .favorites-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ------------------------------ */
