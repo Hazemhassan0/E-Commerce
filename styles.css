@@ -140,7 +140,6 @@ h6 {
 }
 /* ---------------------------- */
 
-/* Products Section */
 #products {
   padding: 2rem;
   text-align: center;
@@ -203,7 +202,7 @@ h6 {
   margin: 0.5rem 0 0.2rem 0;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 825px) {
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -256,7 +255,6 @@ footer {
   color: #ccc;
 }
 
-/* Responsive Footer */
 @media (max-width: 760px) {
   .footer-container {
     flex-direction: column;
@@ -289,7 +287,6 @@ footer {
 
 /* ------------------------------ */
 
-/* Product action buttons at bottom */
 .product-actions {
   display: flex;
   justify-content: center;
@@ -307,7 +304,6 @@ footer {
   gap: 0.3rem;
 }
 
-/* Favorite button */
 .fav-btn {
   background-color: #eee;
   color: #333;
@@ -318,7 +314,6 @@ footer {
   color: #fff;
 }
 
-/* Cart button */
 .cart-btn {
   background-color: #e67e22;
   color: #fff;
@@ -327,8 +322,6 @@ footer {
 .cart-btn:hover {
   background-color: #cf711f;
 }
-
-/* ------------------------------ */
 
 /* ---------------- Favorites Page ---------------- */
 #favorites-page {
@@ -342,7 +335,6 @@ footer {
   margin-bottom: 2rem;
 }
 
-/* Grid for favorite items */
 .favorites-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -436,7 +428,6 @@ footer {
 #checkout-btn:hover {
   background-color: #cf711f;
 }
-/* Responsive Cart Page */
 @media (max-width: 768px) {
   .cart-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -450,7 +441,6 @@ footer {
 
 /* ---------------- Checkout Page ---------------- */
 
-/* Checkout page */
 .checkout-summary,
 .checkout-form {
   max-width: 900px;
@@ -505,7 +495,6 @@ footer {
   background-color: #cf711f;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .cart-summary-grid {  
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
